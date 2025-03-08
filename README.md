@@ -29,10 +29,20 @@ A FastAPI application that allows users to:
    pip install -r requirements.txt
    ```
 
+## Database Migration
+
+* create a new database `bookmark_shortener`
+* run the alembic migration to create the tables
+```bash
+alembic init alembic
+alembic revision --autogenerate -m "first commit"
+alembic upgrade head
+```
+
 ## Running the Application
 
 ```
-uvicorn app.main:app --reload
+python run.py
 ```
 
 The API will be available at http://localhost:8000

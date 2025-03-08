@@ -1,26 +1,27 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Index
-from sqlalchemy.dialects.mysql import CHAR
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
 import uuid
-from src.database import Base
+
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Index
+from sqlalchemy.dialects.mysql import CHAR, VARCHAR
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.sql import func
+
+from src.models.user import User
+from src.utils.helper import generate_uuid
 
 
-def generate_uuid():
-    return str(uuid.uuid4())
+class BookmarkBase(DeclarativeBase):
+    pass
 
 
-class Bookmark(Base):
+class Bookmark(BookmarkBase):
     __tablename__ = "bookmarks"
 
-    id = Column(CHAR(36), primary_key=True, default=generate_uuid)
+    id = Column(VARCHAR(512), primary_key=True, default=generate_uuid)
     original_url = Column(Text)
     short_code = Column(String(10), unique=True, index=True)
     visit_count = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    user_id = Column(CHAR(36), ForeignKey("users.id"))
-
-    user = relationship("User")
+    user_id = Column(VARCHAR(512), ForeignKey(User.id))
 
     __table_args__ = (
         Index('ix_bookmarks_original_url', original_url,
