@@ -8,6 +8,7 @@ click==8.1.8
 cryptography==44.0.2
 dnspython==2.7.0
 ecdsa==0.19.0
+email_validator==2.2.0
 exceptiongroup==1.2.2
 fastapi==0.115.11
 greenlet==3.1.1
