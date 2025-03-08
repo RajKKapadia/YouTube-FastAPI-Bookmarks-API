@@ -3,13 +3,11 @@ from sqlalchemy.orm import sessionmaker
 
 from src import config
 
-# MySQL connection settings
 DB_USERNAME = config.DB_USERNAME
 DB_PASSWORD = config.DB_PASSWORD
 DB_HOST = config.DB_HOST
 DB_NAME = config.DB_NAME
 
-# MySQL connection URL
 SQLALCHEMY_DATABASE_URL = f"mysql+aiomysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 
 engine = create_async_engine(
