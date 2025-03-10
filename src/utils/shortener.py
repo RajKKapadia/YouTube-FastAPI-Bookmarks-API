@@ -4,9 +4,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from src.models.bookmark import Bookmark
 
-def generate_short_code(length=6):
+
+def generate_short_code(length: int = 10):
     chars = string.ascii_letters + string.digits
     return ''.join(random.choice(chars) for _ in range(length))
+
 
 async def create_unique_short_code(db: AsyncSession):
     while True:

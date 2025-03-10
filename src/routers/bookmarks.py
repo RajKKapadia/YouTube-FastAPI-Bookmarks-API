@@ -13,7 +13,7 @@ from src.utils.shortener import create_unique_short_code
 router = APIRouter(prefix="/bookmarks", tags=["bookmarks"])
 
 
-@router.post("/", response_model=BookmarkResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/create", response_model=BookmarkResponse, status_code=status.HTTP_201_CREATED)
 async def create_bookmark(
     bookmark: BookmarkCreate,
     db: AsyncSession = Depends(get_db),
@@ -34,7 +34,7 @@ async def create_bookmark(
     return db_bookmark
 
 
-@router.get("/", response_model=List[BookmarkResponse])
+@router.get("/get/all", response_model=List[BookmarkResponse])
 async def get_user_bookmarks(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
@@ -46,7 +46,7 @@ async def get_user_bookmarks(
     return bookmarks
 
 
-@router.get("/{bookmark_id}", response_model=BookmarkResponse)
+@router.get("/get/{bookmark_id}", response_model=BookmarkResponse)
 async def get_bookmark(
     bookmark_id: str,
     db: AsyncSession = Depends(get_db),
@@ -69,7 +69,7 @@ async def get_bookmark(
     return bookmark
 
 
-@router.delete("/{bookmark_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/delete/{bookmark_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_bookmark(
     bookmark_id: str,
     db: AsyncSession = Depends(get_db),
